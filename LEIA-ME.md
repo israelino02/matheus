@@ -98,7 +98,12 @@ Por ser um site estático, funciona em qualquer hospedagem: basta enviar o
 conteúdo da pasta `site/` para a raiz do domínio (`public_html`, Netlify,
 Vercel, GitHub Pages, Hostinger etc.).
 
-Antes de publicar, ajuste também no `index.html`:
-- a tag `<link rel="canonical">` com o domínio definitivo;
-- a tag `<meta property="og:image">` com a URL completa da imagem de
-  compartilhamento (necessário para a prévia aparecer no WhatsApp).
+### Endereço atual
+
+O site está publicado pelo GitHub Pages em:
+**https://israelino02.github.io/matheus/**
+
+As tags `canonical`, `og:url` e `og:image` do `index.html` já apontam para esse
+endereço. **Ao contratar o domínio próprio** (ex.: `stoffline.com.br`), troque as
+três para o novo endereço — sem isso a prévia do link no WhatsApp e o
+posicionamento no Google continuam apontando para o endereço antigo.
