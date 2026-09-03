@@ -1,0 +1,8 @@
+# Arquivos que o macOS cria sozinho e nao fazem parte do site
+.DS_Store
+._*
+
+# Editores
+.vscode/
+.idea/
+*.swp
