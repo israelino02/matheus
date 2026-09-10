@@ -98,6 +98,25 @@ document.addEventListener("DOMContentLoaded", function () {
   /* ---------- Filtro de modelos ---------- */
   const filtros = document.querySelectorAll(".filter");
   const modelos = document.querySelectorAll(".model");
+  const grade   = document.getElementById("models");
+
+  /* Se o ultimo card ficaria sozinho na linha, ele passa a ocupar a largura
+     toda. O numero de colunas e lido do proprio grid, entao funciona em
+     qualquer largura de tela e com qualquer filtro aplicado. */
+  const ajustarSobra = function () {
+    if (!grade) return;
+    modelos.forEach(function (m) { m.classList.remove("model--largo"); });
+
+    const visiveis = Array.prototype.filter.call(modelos, function (m) {
+      return !m.classList.contains("is-hidden");
+    });
+    const colunas = window.getComputedStyle(grade).gridTemplateColumns.split(" ").length;
+    if (colunas < 2 || visiveis.length <= colunas) return;
+    if (visiveis.length % colunas === 1) {
+      visiveis[visiveis.length - 1].classList.add("model--largo");
+    }
+  };
+
   filtros.forEach(function (btn) {
     btn.addEventListener("click", function () {
       filtros.forEach(function (b) { b.classList.remove("is-active"); });
@@ -108,7 +127,15 @@ document.addEventListener("DOMContentLoaded", function () {
         m.classList.toggle("is-hidden", !mostra);
         if (mostra) m.classList.add("is-visible");
       });
+      ajustarSobra();
     });
+  });
+
+  ajustarSobra();
+  var recalculo;
+  window.addEventListener("resize", function () {
+    window.clearTimeout(recalculo);
+    recalculo = window.setTimeout(ajustarSobra, 150);
   });
 
   /* ---------- FAQ (acordeão) ---------- */

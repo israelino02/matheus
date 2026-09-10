@@ -57,11 +57,10 @@ site/
 7. Como funciona — 4 etapas do processo
 8. Tecidos — famílias de tecido
 9. Vídeos — os 3 reels
-10. Condições do mês — promoções
-11. Dúvidas frequentes — acordeão
-12. Orçamento — formulário que abre o WhatsApp preenchido
-13. Localização — mapa do Google + horários
-14. Rodapé
+10. Dúvidas frequentes — acordeão
+11. Orçamento — formulário que abre o WhatsApp preenchido
+12. Localização — mapa do Google + horários
+13. Rodapé
 
 ## Como alterar as cores
 
