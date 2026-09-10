@@ -222,20 +222,35 @@ p{ margin:0 0 1em; }
 @keyframes scrollLine{ 0%,100%{ opacity:.3; transform:scaleY(.6); transform-origin:top; } 50%{ opacity:1; transform:scaleY(1); } }
 
 /* ==========================================================================
-   DIFERENCIAIS
+   DIFERENCIAIS — esteira
    ========================================================================== */
-.perks{ background:var(--sand); border-bottom:1px solid var(--line); }
-.perks__grid{ display:grid; grid-template-columns:repeat(4,1fr); }
-.perk{ padding:46px 30px; text-align:center; border-right:1px solid var(--line); transition:background .3s; }
-.perk:last-child{ border-right:none; }
-.perk:hover{ background:rgba(255,255,255,.6); }
-.perk__icon{
-  width:52px; height:52px; margin:0 auto 18px; border-radius:50%;
-  display:grid; place-items:center; background:var(--ink); color:var(--gold);
+.ticker{
+  background:var(--sand); border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+  padding:18px 0; overflow:hidden;
 }
-.perk__icon svg{ width:23px; height:23px; }
-.perk h3{ font-size:15px; font-weight:600; letter-spacing:.02em; margin-bottom:8px; }
-.perk p{ font-size:13.5px; color:var(--muted); margin:0; line-height:1.6; }
+.ticker__janela{ position:relative; }
+/* esmaece as pontas para a esteira parecer sem inicio nem fim */
+.ticker__janela::before,.ticker__janela::after{
+  content:""; position:absolute; top:0; bottom:0; width:90px; z-index:2; pointer-events:none;
+}
+.ticker__janela::before{ left:0;  background:linear-gradient(to right, var(--sand), transparent); }
+.ticker__janela::after{  right:0; background:linear-gradient(to left,  var(--sand), transparent); }
+
+.ticker__trilho{ display:flex; width:max-content; animation:esteira 46s linear infinite; }
+.ticker:hover .ticker__trilho{ animation-play-state:paused; }
+@keyframes esteira{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
+
+.ticker__fita{ display:flex; align-items:center; flex:none; }
+.ticker__fita li{
+  display:inline-flex; align-items:center; gap:11px; flex:none;
+  padding:0 34px; font-size:14px; font-weight:500; letter-spacing:.01em; color:var(--text);
+  white-space:nowrap; position:relative;
+}
+.ticker__fita li::after{
+  content:""; position:absolute; right:0; top:50%; transform:translateY(-50%);
+  width:4px; height:4px; border-radius:50%; background:var(--gold);
+}
+.ticker__fita li svg{ width:21px; height:21px; color:var(--gold-2); flex:none; }
 
 /* ==========================================================================
    SOBRE
@@ -273,7 +288,7 @@ p{ margin:0 0 1em; }
 .filter:hover{ border-color:var(--gold); color:#fff; }
 .filter.is-active{ background:var(--gold); border-color:var(--gold); color:#111; }
 
-.models{ display:grid; grid-template-columns:repeat(3,1fr); gap:26px; }
+.models{ display:grid; grid-template-columns:repeat(2,1fr); gap:26px; }
 .model{
   position:relative; overflow:hidden; border-radius:var(--radius); background:var(--ink-3);
   transition:opacity .35s var(--ease), transform .35s var(--ease);
@@ -340,24 +355,55 @@ p{ margin:0 0 1em; }
 .model__zoom:hover{ background:var(--gold); color:#111; }
 
 /* ==========================================================================
-   PROCESSO
+   PROCESSO — passo a passo
    ========================================================================== */
-.steps{ display:grid; grid-template-columns:repeat(4,1fr); gap:34px; counter-reset:step; }
-.step{ position:relative; padding-top:34px; }
+.processo{ background:var(--sand); }
+
+.steps{
+  display:grid; grid-template-columns:repeat(4,1fr); gap:22px;
+  position:relative; padding-top:30px;
+}
+/* trilho que costura as quatro etapas */
+.steps__trilho{
+  position:absolute; top:0; left:12%; right:12%; height:2px;
+  background:linear-gradient(to right, transparent, var(--stone) 12%, var(--stone) 88%, transparent);
+}
+
+.step{
+  background:var(--white); border:1px solid var(--line); border-radius:var(--radius-lg);
+  padding:28px 26px 30px; position:relative;
+  transition:transform .4s var(--ease), box-shadow .4s var(--ease), border-color .4s;
+}
 .step::before{
-  content:""; position:absolute; top:0; left:0; right:0; height:1px; background:var(--line);
+  /* marcador que encosta no trilho */
+  content:""; position:absolute; top:-36px; left:50%; transform:translateX(-50%);
+  width:12px; height:12px; border-radius:50%; background:var(--gold);
+  box-shadow:0 0 0 5px var(--sand); transition:transform .4s var(--ease);
 }
-.step::after{
-  content:""; position:absolute; top:-4px; left:0; width:9px; height:9px; border-radius:50%;
-  background:var(--gold); transition:transform .3s;
+.step:hover{ transform:translateY(-8px); box-shadow:0 22px 46px rgba(0,0,0,.10); border-color:var(--stone); }
+.step:hover::before{ transform:translateX(-50%) scale(1.35); }
+
+.step__topo{ display:flex; align-items:center; justify-content:space-between; margin-bottom:18px; }
+.step__num{
+  font-family:var(--font-display); font-size:46px; line-height:.9; font-weight:500;
+  color:var(--ink); letter-spacing:-.03em;
 }
-.step:hover::after{ transform:scale(1.5); }
-.step b{
-  display:block; font-family:var(--font-display); font-size:15px; color:var(--gold-2);
-  letter-spacing:.1em; margin-bottom:14px;
+.step__icone{
+  width:46px; height:46px; border-radius:50%; flex:none;
+  display:grid; place-items:center; background:var(--ink); color:var(--gold);
+  transition:transform .4s var(--ease);
 }
-.step h3{ font-size:19px; font-weight:600; margin-bottom:10px; }
+.step:hover .step__icone{ transform:rotate(-8deg) scale(1.06); }
+.step__icone svg{ width:21px; height:21px; }
+
+.step h3{ font-size:19px; font-weight:600; margin-bottom:9px; letter-spacing:-.01em; }
 .step p{ font-size:14.5px; color:var(--muted); margin:0; line-height:1.65; }
+
+.processo__cta{
+  margin-top:48px; display:flex; align-items:center; justify-content:center;
+  gap:26px; flex-wrap:wrap; text-align:center;
+}
+.processo__cta p{ margin:0; font-size:16px; color:var(--muted); }
 
 /* ==========================================================================
    TECIDOS
@@ -377,7 +423,7 @@ p{ margin:0 0 1em; }
 .fabric p{ font-size:12.5px; color:var(--muted); margin:0; line-height:1.5; }
 
 .fabrics-note{
-  margin-top:48px; padding:26px 32px; background:var(--white); border:1px solid var(--line);
+  margin-top:48px; padding:26px 32px; background:var(--sand); border:1px solid var(--line);
   border-radius:var(--radius); display:flex; align-items:center; gap:22px; flex-wrap:wrap; justify-content:space-between;
 }
 .fabrics-note p{ margin:0; font-size:15px; }
@@ -536,8 +582,9 @@ p{ margin:0 0 1em; }
   .section{ padding:82px 0; }
   .about__grid{ gap:52px; }
   .about__media img{ height:460px; }
-  .models{ grid-template-columns:repeat(2,1fr); }
-  .steps{ grid-template-columns:repeat(2,1fr); gap:34px 30px; }
+  .steps{ grid-template-columns:repeat(2,1fr); gap:44px 22px; }
+  .steps__trilho{ display:none; }
+  .step::before{ top:-24px; }
   .fabrics{ grid-template-columns:repeat(3,1fr); }
   .footer__grid{ grid-template-columns:1fr 1fr; gap:44px; }
   .quote-grid{ grid-template-columns:1fr; gap:48px; }
@@ -548,9 +595,6 @@ p{ margin:0 0 1em; }
   .nav, .header__cta .btn{ display:none; }
   .burger{ display:flex; }
   .topbar__list .topbar__item:not(:first-child){ display:none; }
-  .perks__grid{ grid-template-columns:repeat(2,1fr); }
-  .perk{ border-bottom:1px solid var(--line); }
-  .perk:nth-child(2n){ border-right:none; }
   .about__grid{ grid-template-columns:1fr; }
   .about__media{ order:-1; }
   .about__badge{ right:16px; bottom:-20px; }
@@ -572,7 +616,7 @@ p{ margin:0 0 1em; }
   .eyebrow{ font-size:10px; letter-spacing:.16em; }
   .models{ grid-template-columns:1fr; }
   .reels{ grid-template-columns:1fr; }
-  .steps{ grid-template-columns:1fr; gap:28px; }
+  .steps{ grid-template-columns:1fr; gap:40px; padding-top:24px; }
   .fabrics{ grid-template-columns:repeat(2,1fr); gap:14px; }
   /* mesmo criterio dos cards: swatch que sobraria sozinho ocupa a linha toda */
   .fabric:last-child:nth-child(odd){ grid-column:1 / -1; }
