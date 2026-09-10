@@ -147,45 +147,85 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  /* ---------- Galeria + lightbox ---------- */
-  const itensGaleria = Array.prototype.slice.call(document.querySelectorAll(".gallery__item img"));
-  const lightbox = document.getElementById("lightbox");
-  const lbImg = document.getElementById("lbImg");
-  let indiceAtual = 0;
+  /* ---------- Fotos do produto dentro do card ---------- */
+  document.querySelectorAll(".model").forEach(function (card) {
+    var fotos  = card.querySelectorAll(".model__img img");
+    var pontos = card.querySelectorAll(".model__thumb");
+    if (fotos.length < 2) return;
 
-  if (lightbox && lbImg && itensGaleria.length) {
+    var atual = 0, timer = null;
 
-  const abrirLightbox = function (i) {
-    indiceAtual = (i + itensGaleria.length) % itensGaleria.length;
-    lbImg.src = itensGaleria[indiceAtual].src;
-    lbImg.alt = itensGaleria[indiceAtual].alt;
+    var mostrar = function (i) {
+      atual = (i + fotos.length) % fotos.length;
+      fotos.forEach(function (img, k) { img.classList.toggle("is-active", k === atual); });
+      pontos.forEach(function (p, k) { p.classList.toggle("is-active", k === atual); });
+    };
+
+    pontos.forEach(function (p) {
+      p.addEventListener("click", function (e) {
+        e.stopPropagation();
+        window.clearInterval(timer);
+        mostrar(parseInt(p.getAttribute("data-i"), 10));
+      });
+    });
+
+    // passa as fotos sozinho enquanto o mouse estiver sobre o card
+    card.addEventListener("mouseenter", function () {
+      timer = window.setInterval(function () { mostrar(atual + 1); }, 1600);
+    });
+    card.addEventListener("mouseleave", function () {
+      window.clearInterval(timer);
+      mostrar(0);
+    });
+  });
+
+  /* ---------- Lightbox das fotos do produto ---------- */
+  var lightbox = document.getElementById("lightbox");
+  var lbImg    = document.getElementById("lbImg");
+  var fotosLb  = [];
+  var indiceLb = 0;
+
+  var mostrarLb = function (i) {
+    if (!fotosLb.length) return;
+    indiceLb = (i + fotosLb.length) % fotosLb.length;
+    lbImg.src = fotosLb[indiceLb].src;
+    lbImg.alt = fotosLb[indiceLb].alt;
+  };
+  var abrirLb = function (card) {
+    fotosLb = Array.prototype.slice.call(card.querySelectorAll(".model__img img"));
+    mostrarLb(0);
     lightbox.classList.add("is-open");
     document.body.style.overflow = "hidden";
   };
-  const fecharLightbox = function () {
+  var fecharLb = function () {
     lightbox.classList.remove("is-open");
     document.body.style.overflow = "";
   };
 
-  itensGaleria.forEach(function (img, i) {
-    img.parentElement.addEventListener("click", function () { abrirLightbox(i); });
-  });
-  document.getElementById("lbClose").addEventListener("click", fecharLightbox);
-  document.getElementById("lbPrev").addEventListener("click", function (e) {
-    e.stopPropagation(); abrirLightbox(indiceAtual - 1);
-  });
-  document.getElementById("lbNext").addEventListener("click", function (e) {
-    e.stopPropagation(); abrirLightbox(indiceAtual + 1);
-  });
-  lightbox.addEventListener("click", function (e) {
-    if (e.target === lightbox) fecharLightbox();
-  });
-  document.addEventListener("keydown", function (e) {
-    if (!lightbox.classList.contains("is-open")) return;
-    if (e.key === "Escape") fecharLightbox();
-    if (e.key === "ArrowLeft") abrirLightbox(indiceAtual - 1);
-    if (e.key === "ArrowRight") abrirLightbox(indiceAtual + 1);
-  });
+  if (lightbox && lbImg) {
+    document.querySelectorAll(".model").forEach(function (card) {
+      var lupa = card.querySelector(".model__zoom");
+      if (lupa) lupa.addEventListener("click", function () { abrirLb(card); });
+      var area = card.querySelector(".model__img");
+      if (area) area.addEventListener("click", function () { abrirLb(card); });
+    });
+
+    document.getElementById("lbClose").addEventListener("click", fecharLb);
+    document.getElementById("lbPrev").addEventListener("click", function (e) {
+      e.stopPropagation(); mostrarLb(indiceLb - 1);
+    });
+    document.getElementById("lbNext").addEventListener("click", function (e) {
+      e.stopPropagation(); mostrarLb(indiceLb + 1);
+    });
+    lightbox.addEventListener("click", function (e) {
+      if (e.target === lightbox) fecharLb();
+    });
+    document.addEventListener("keydown", function (e) {
+      if (!lightbox.classList.contains("is-open")) return;
+      if (e.key === "Escape")     fecharLb();
+      if (e.key === "ArrowLeft")  mostrarLb(indiceLb - 1);
+      if (e.key === "ArrowRight") mostrarLb(indiceLb + 1);
+    });
   }
 
   /* ---------- Formulário → WhatsApp ---------- */

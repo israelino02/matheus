@@ -21,16 +21,16 @@ Só é preciso alterar **nesse único lugar** — os 17 botões e links de Whats
 site (topo, menu, cards de produto, formulário, rodapé e botão flutuante) são
 montados automaticamente a partir dele.
 
-### 2. Depoimentos
-A seção "Depoimentos" está com textos de espaço reservado. Substitua no
-`index.html` (procure por `SUBSTITUIR pelos feedbacks reais`) pelos prints do
-destaque **"Feedbacks ❤️"** do Instagram, com nome e cidade de cada cliente.
+### 2. Fotos dos produtos
+As fotos vêm da pasta `PRODUTOS`, uma subpasta por modelo. Para trocar ou
+acrescentar, coloque o arquivo em `assets/img/` seguindo o padrão de nome
+(`nome-do-modelo-1.jpg`, `-2.jpg`…) e some a tag `<img>` dentro do
+`.model__img` do card — os indicadores de foto se ajustam sozinhos.
 
-### 3. Nomes dos modelos
-Só "Monarc" e "Riane" vieram do material original. Os demais nomes
-("Linha Compact", "Bouclê Milano", "Linha Nórdica", "Curve Caramelo",
-"Poltrona Madeira", "Sofá Retrátil Bicolor") foram criados como sugestão —
-confirme com a Gizele e ajuste no `index.html`, seção `MODELOS`.
+### 3. Depoimentos
+A seção de depoimentos foi retirada por seguir com texto de exemplo. Quando
+tiver os feedbacks reais do destaque "Feedbacks ❤️" do Instagram, é só pedir
+que ela volta — o espaço no layout já está previsto.
 
 ---
 
@@ -53,17 +53,15 @@ site/
 3. Hero — chamada principal
 4. Diferenciais — 4 pilares
 5. A fábrica — sobre a empresa + frase da CEO
-6. Modelos — 8 produtos com filtro por categoria
+6. Modelos — 5 produtos com filtro por categoria e troca de fotos
 7. Como funciona — 4 etapas do processo
 8. Tecidos — famílias de tecido
-9. Projetos entregues — galeria com ampliação de imagem
-10. Vídeos — os 3 reels
-11. Depoimentos
-12. Condições do mês — promoções
-13. Dúvidas frequentes — acordeão
-14. Orçamento — formulário que abre o WhatsApp preenchido
-15. Localização — mapa do Google + horários
-16. Rodapé
+9. Vídeos — os 3 reels
+10. Condições do mês — promoções
+11. Dúvidas frequentes — acordeão
+12. Orçamento — formulário que abre o WhatsApp preenchido
+13. Localização — mapa do Google + horários
+14. Rodapé
 
 ## Como alterar as cores
 
@@ -74,6 +72,12 @@ Tudo está no início de `css/style.css`, no bloco `:root`:
 --gold: #FFC20E;   /* amarelo da marca */
 --sand: #F6F2EC;   /* bege dos fundos  */
 ```
+
+## Tipografia
+
+Títulos em **Fraunces** e textos em **DM Sans**, carregadas do Google Fonts.
+Para trocar, altere o `<link>` no `<head>` do `index.html` e as variáveis
+`--font-display` e `--font-sans` no topo do `css/style.css`.
 
 ## Como trocar as fotos
 
