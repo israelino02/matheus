@@ -174,6 +174,36 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
+  /* ---------- Esteira de vídeos (celular) ---------- */
+  var faixaReels = document.querySelector(".reels");
+  var pontosReels = document.getElementById("reelsPontos");
+  if (faixaReels && pontosReels) {
+    var reels = faixaReels.querySelectorAll(".reel");
+
+    reels.forEach(function (reel, i) {
+      var ponto = document.createElement("button");
+      ponto.setAttribute("aria-label", "Ir para o vídeo " + (i + 1));
+      if (i === 0) ponto.classList.add("is-active");
+      ponto.addEventListener("click", function () {
+        faixaReels.scrollTo({ left: reel.offsetLeft - faixaReels.offsetLeft, behavior: "smooth" });
+      });
+      pontosReels.appendChild(ponto);
+    });
+
+    var marcarPonto = function () {
+      var meio = faixaReels.scrollLeft + faixaReels.clientWidth / 2;
+      var atual = 0;
+      reels.forEach(function (reel, i) {
+        var centro = reel.offsetLeft - faixaReels.offsetLeft + reel.clientWidth / 2;
+        if (Math.abs(centro - meio) < reel.clientWidth / 2) atual = i;
+      });
+      pontosReels.querySelectorAll("button").forEach(function (b, i) {
+        b.classList.toggle("is-active", i === atual);
+      });
+    };
+    faixaReels.addEventListener("scroll", marcarPonto, { passive: true });
+  }
+
   /* ---------- Fotos do produto dentro do card ---------- */
   document.querySelectorAll(".model").forEach(function (card) {
     var fotos  = card.querySelectorAll(".model__img img");
