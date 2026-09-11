@@ -5,29 +5,35 @@ Basta hospedar a pasta `site/` em qualquer servidor ou serviço de hospedagem.
 
 ---
 
-## ⚠️ 3 coisas para ajustar ANTES de publicar
+## Contatos do site
 
-### 1. Número do WhatsApp (obrigatório)
-Hoje está com um número de exemplo. Abra `js/main.js`, primeira linha de código:
+- **WhatsApp:** (75) 99960-4266
+- **Instagram:** https://www.instagram.com/stoff.line/
+
+### Como trocar o número do WhatsApp
+Abra `js/main.js`, primeira linha de código:
 
 ```js
-const WHATSAPP = "5575999999999"; // <-- trocar pelo número real
+const WHATSAPP = "5575999604266";
 ```
 
 Formato: **55 + DDD + número**, só dígitos, sem espaços ou traços.
-Exemplo: `(75) 98765-4321` vira `5575987654321`.
+Todos os botões e links de WhatsApp (topo, menu, cards de produto, formulário,
+rodapé e botão flutuante) são montados a partir dessa constante.
 
-Só é preciso alterar **nesse único lugar** — os 17 botões e links de WhatsApp do
-site (topo, menu, cards de produto, formulário, rodapé e botão flutuante) são
-montados automaticamente a partir dele.
+O número também aparece **escrito** em três pontos do `index.html`, que
+precisam ser trocados à mão: em "Venha nos visitar", no rodapé e no campo
+`"telephone"` dos dados estruturados.
 
-### 2. Fotos dos produtos
+## Manutenção
+
+### Fotos dos produtos
 As fotos vêm da pasta `PRODUTOS`, uma subpasta por modelo. Para trocar ou
 acrescentar, coloque o arquivo em `assets/img/` seguindo o padrão de nome
 (`nome-do-modelo-1.jpg`, `-2.jpg`…) e some a tag `<img>` dentro do
 `.model__img` do card — os indicadores de foto se ajustam sozinhos.
 
-### 3. Depoimentos
+### Depoimentos
 A seção de depoimentos foi retirada por seguir com texto de exemplo. Quando
 tiver os feedbacks reais do destaque "Feedbacks ❤️" do Instagram, é só pedir
 que ela volta — o espaço no layout já está previsto.

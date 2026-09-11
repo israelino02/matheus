@@ -3,12 +3,11 @@
    ========================================================================== */
 
 /* --------------------------------------------------------------------------
-   >>> ALTERE AQUI O NÚMERO DE WHATSAPP <<<
+   NÚMERO DE WHATSAPP DA STOFF LINE — (75) 99960-4266
    Formato: código do país + DDD + número, só dígitos.
-   Ex.: (75) 98765-4321  →  "5575987654321"
-   Este é o ÚNICO lugar do site onde o número precisa ser trocado.
+   Todos os links de WhatsApp do site são montados a partir desta constante.
    -------------------------------------------------------------------------- */
-const WHATSAPP = "5575999999999"; // <-- PLACEHOLDER: substituir pelo número real
+const WHATSAPP = "5575999604266";
 
 document.addEventListener("DOMContentLoaded", function () {
 

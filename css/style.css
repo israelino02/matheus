@@ -554,6 +554,8 @@ p{ margin:0 0 1em; }
 .footer__grid{ display:grid; grid-template-columns:1.5fr 1fr 1fr 1.2fr; gap:52px; padding-bottom:56px; }
 .footer__brand img{ height:44px; width:auto; filter:contrast(1.25); mix-blend-mode:lighten; margin-bottom:20px; }
 .footer p{ line-height:1.75; }
+.footer__tel{ color:#fff; font-weight:500; transition:color .25s; }
+.footer__tel:hover{ color:var(--gold); }
 .footer h4{ font-size:12px; font-weight:600; letter-spacing:.16em; text-transform:uppercase; color:#fff; margin-bottom:20px; }
 .footer__links li{ margin-bottom:11px; }
 .footer__links a{ transition:color .25s, padding-left .25s; }
